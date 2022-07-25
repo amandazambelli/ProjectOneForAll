@@ -10,8 +10,8 @@ CREATE TABLE SpotifyClone.planos(
 
 CREATE TABLE SpotifyClone.usuarios(
     usuario_id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(40) NOT NULL,
-    idade INT NOT NULL,
+    nome_usuario VARCHAR(40) NOT NULL,
+    idade_usuario INT NOT NULL,
     plano_id INT NOT NULL,
     data_plano DATE NOT NULL,
     FOREIGN KEY (plano_id) REFERENCES planos (plano_id)
@@ -19,24 +19,24 @@ CREATE TABLE SpotifyClone.usuarios(
 
 CREATE TABLE SpotifyClone.artistas(
     artista_id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(40) NOT NULL
+    artista_nome VARCHAR(40) NOT NULL
 ) engine = InnoDB;
 
 CREATE TABLE SpotifyClone.albuns(
     album_id INT AUTO_INCREMENT PRIMARY KEY,
-    titulo VARCHAR(40) NOT NULL,
-    artista INT NOT NULL,
-    FOREIGN KEY (artista) REFERENCES artistas (artista_id)
+    album_titulo VARCHAR(40) NOT NULL,
+    artista_id INT NOT NULL,
+    ano_lancamento YEAR,
+    FOREIGN KEY (artista_id) REFERENCES artistas (artista_id)
     
 ) engine = InnoDB;
 
 CREATE TABLE SpotifyClone.musicas(
     musica_id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(40) NOT NULL,
+    nome_musica VARCHAR(40) NOT NULL,
     duracao INT NOT NULL,
-    ano_lancamento YEAR,
-    album INT NOT NULL,
-    FOREIGN KEY (album) REFERENCES albuns (album_id)
+    album_id INT NOT NULL,
+    FOREIGN KEY (album_id) REFERENCES albuns (album_id)
 ) engine = InnoDB;
 
 CREATE TABLE SpotifyClone.seguindo(
@@ -63,7 +63,7 @@ VALUES
   ('universitário', 5.99),
   ('pessoal', 6.99);
 
-INSERT INTO SpotifyClone.usuarios (nome, idade, plano_id, data_plano)
+INSERT INTO SpotifyClone.usuarios (nome_usuario, idade_usuario, plano_id, data_plano)
 VALUES
   ('Thati', 23, 1, '2019-10-20'),
   ('Cintia', 35, 2, '2017-12-30'),
@@ -76,7 +76,7 @@ VALUES
   ('Angelina', 42, 2, '2018-04-29'),
   ('Paul', 46, 2, '2017-01-17');
 
-INSERT INTO SpotifyClone.artistas (nome)
+INSERT INTO SpotifyClone.artistas (artista_nome)
 VALUES
   ('Walter Phoenix'),
   ('Peter Strong'),
@@ -85,61 +85,61 @@ VALUES
   ('Tyler Isle'),
   ('Fog');
 
-INSERT INTO SpotifyClone.albuns (titulo, artista)
+INSERT INTO SpotifyClone.albuns (album_titulo, artista_id, ano_lancamento)
 VALUES
-  ('Envious', 1),
-  ('Exuberant', 1),
-  ('Hallowed Steam', 2),
-  ('Incandescent', 3),
-  ('Temporary Culture', 4),
-  ('Library of liberty', 4),
-  ('Chained Down', 5),
-  ('Cabinet of fools', 5),
-  ('No guarantees', 5),
-  ('Apparatus', 6);
+  ('Envious', 1, 1990),
+  ('Exuberant', 1, 1993),
+  ('Hallowed Steam', 2, 1995),
+  ('Incandescent', 3, 1998),
+  ('Temporary Culture', 4, 2001),
+  ('Library of liberty', 4, 2003),
+  ('Chained Down', 5, 2007),
+  ('Cabinet of fools', 5, 2012),
+  ('No guarantees', 5, 2015),
+  ('Apparatus', 6, 2015);
   
-  INSERT INTO SpotifyClone.musicas (nome, duracao, ano_lancamento, album)
+  INSERT INTO SpotifyClone.musicas (nome_musica, duracao, album_id)
 VALUES
-  ('Soul For Us', 200, 1990, 1),
-  ('Reflections Of Magic', 163, 1990, 1),
-  ('Dance With Her Own', 116, 1990, 1),
-  ('Troubles Of My Inner Fire', 203, 1993, 2),
-  ('Time Fireworks', 152, 1993, 2),
-  ('Magic Circus', 105, 1995, 3),
-  ('Honey, So Do I', 207, 1995, 3),
-  ('Sweetie, Let''s Go Wild', 139, 1995, 3),
-  ('She Knows', 244, 1995, 3),
-  ('Fantasy For Me', 100, 1998, 4),
-  ('Celebration Of More', 146, 1998, 4),
-  ('Rock His Everything', 223, 1998, 4),
-  ('Home Forever', 231, 1998, 4),
-  ('Diamond Power', 241, 1998, 4),
-  ('Let''s Be Silly', 132, 1998, 4),
-  ('Thang Of Thunder', 240, 2001, 5),
-  ('Words Of Her Life', 185, 2001, 5),
-  ('Without My Streets', 176, 2001, 5),
-  ('Need Of The Evening', 190, 2003, 6),
-  ('History Of My Roses', 222, 2003, 6),
-  ('Without My Love', 111, 2003, 6),
-  ('Walking And Game', 123, 2003, 6),
-  ('Young And Father', 197, 2003, 6),
-  ('Finding My Traditions', 179, 2007, 7),
-  ('Walking And Man', 229, 2007, 7),
-  ('Hard And Time', 135, 2007, 7),
-  ('Honey, I''m A Lone Wolf', 150, 2007, 7),
-  ('She Thinks I Won''t Stay Tonight', 166, 2012, 8),
-  ('He Heard You''re Bad For Me', 154, 2012, 8),
-  ('He Hopes We Can''t Stay', 210, 2012, 8),
-  ('I Know I Know', 117, 2012, 8),
-  ('He''s Walking Away', 159, 2015, 9),
-  ('He''s Trouble', 138, 2015, 9),
-  ('I Heard I Want To Bo Alone', 120, 2015, 9),
-  ('I Ride Alone', 151, 2015, 9),
-  ('Honey', 79, 2015, 10),
-  ('You Cheated On Me', 95, 2015, 10),
-  ('Wouldn''t It Be Nice', 213, 2015, 10),
-  ('Baby', 136, 2015, 10),
-  ('You Make Me Feel So..', 83, 2015, 10);
+  ('Soul For Us', 200, 1),
+  ('Reflections Of Magic', 163, 1),
+  ('Dance With Her Own', 116, 1),
+  ('Troubles Of My Inner Fire', 203, 2),
+  ('Time Fireworks', 152, 2),
+  ('Magic Circus', 105, 3),
+  ('Honey, So Do I', 207, 3),
+  ('Sweetie, Let''s Go Wild', 139, 3),
+  ('She Knows', 244, 3),
+  ('Fantasy For Me', 100, 4),
+  ('Celebration Of More', 146, 4),
+  ('Rock His Everything', 223, 4),
+  ('Home Forever', 231, 4),
+  ('Diamond Power', 241, 4),
+  ('Let''s Be Silly', 132, 4),
+  ('Thang Of Thunder', 240, 5),
+  ('Words Of Her Life', 185, 5),
+  ('Without My Streets', 176, 5),
+  ('Need Of The Evening', 190, 6),
+  ('History Of My Roses', 222, 6),
+  ('Without My Love', 111, 6),
+  ('Walking And Game', 123, 6),
+  ('Young And Father', 197, 6),
+  ('Finding My Traditions', 179, 7),
+  ('Walking And Man', 229, 7),
+  ('Hard And Time', 135, 7),
+  ('Honey, I''m A Lone Wolf', 150, 7),
+  ('She Thinks I Won''t Stay Tonight', 166, 8),
+  ('He Heard You''re Bad For Me', 154, 8),
+  ('He Hopes We Can''t Stay', 210, 8),
+  ('I Know I Know', 117, 8),
+  ('He''s Walking Away', 159, 9),
+  ('He''s Trouble', 138, 9),
+  ('I Heard I Want To Bo Alone', 120, 9),
+  ('I Ride Alone', 151, 9),
+  ('Honey', 79, 10),
+  ('You Cheated On Me', 95, 10),
+  ('Wouldn''t It Be Nice', 213, 10),
+  ('Baby', 136, 10),
+  ('You Make Me Feel So..', 83, 10);
   
   INSERT INTO SpotifyClone.seguindo (usuario_id, artista_id)
 VALUES
